@@ -1,0 +1,386 @@
+/* ძირითადი სტილები */
+html, body {
+    height: 100%; /* აუცილებელია მშობლის სიმაღლის განსაზღვრა */
+    margin: 0;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;
+    
+    height: 100%; /* მთელი ფანჯრის სიმაღლე */
+    overflow: hidden; /* Prevent scrolling */
+}
+
+.container {
+    width: 100%;
+    
+    overflow-y: auto; /* ვერტიკალური სქროლი */
+    height: 100%; /* ფანჯრის სიმაღლის 80% */
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+}
+
+.products-container {
+    
+    padding: 10px;
+    margin-left: 5px;
+    
+    width: 50%;
+    overflow-y: hidden;
+    box-sizing: border-box;
+    height: 100%;
+    
+    box-shadow: 10px 0 5px rgba(0, 0, 0, 0.3); /* მარჯვენა ჩრდილი */
+    
+}
+.productList {
+
+
+     overflow-y:auto;
+     height: calc(100% - 80px);
+     
+     box-shadow: -10px 20px 35px rgba(0, 0, 0, 0.7); /* მარჯვენა ჩრდილი */
+     border-radius: 10px;
+ }
+.product {
+    background-color: #f5f8f5;
+    margin-bottom: 1px;
+    padding: 2px;
+    margin-left: 5px;
+    
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-container  {
+    
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    margin-top: 10px;
+    background-color: #888;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-container input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    
+}
+
+.product:last-child {
+    border-bottom: none;
+}
+
+.product:hover {
+    background-color: #f5f5f5;
+}
+
+.product h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.product p {
+    margin: 5px 0;
+    color: #666;
+}
+
+
+/* ფორმის სტილები */
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+#responseMessage {
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+    margin-top: 20px;
+}
+
+/* ჰედერის სტილები */
+header {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    
+    text-align: left;
+   
+    height: 50px;
+    
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 -10px 15px rgba(0, 0, 0, 0.5); /* მკვეთრი ზედა ჩრდილი */
+    
+}
+
+.hamburger {
+    display: block;
+    font-size: 32px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+/* მენიუს სტილები */
+.menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 30%;
+    height: 100%;
+    background-color: #4CAF50;
+    z-index: 999;
+    transition: left 1s ease;
+}
+
+.menu.show {
+    display: block;
+    left: 0;
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 80px;
+}
+
+.menu ul li {
+    display: block;
+    text-align: center;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    padding: 15px 0;
+    transition: background-color 0.3s ease;
+    display: block;
+    width: 100%;
+}
+
+.menu ul li a:hover {
+    background-color: #45a049;
+    border-radius: 5px;
+}
+
+/* კონტეინერის სტილები */
+
+
+.cart-container {
+    background-color: whitesmoke;
+    padding: 3px;
+    border-end-end-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    box-sizing: border-box;
+    position: relative;
+    height: 100%;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.cart-summary {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.cart {
+    flex: 9;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    box-shadow: 10px 0 5px rgba(0, 0, 0, 0.3); /* მარჯვენა ჩრდილი */
+    
+}
+
+.checkout {
+    
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px 30px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#checkoutButton {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+#checkoutButton:hover {
+    background-color: #45a049;
+}
+
+.cart_dasaxeleba{
+width: calc(100% - 240px);
+padding-left: 10px;
+}
+.total-price{
+    
+    width: 100px;
+    display: flex;
+    justify-content: center;
+}
+.cart-item {
+    
+    padding: 5px;
+
+    margin: 10px;
+    box-shadow: 10px 0 5px rgba(0, 0, 0, 0.3); /* მარჯვენა ჩრდილი */
+    
+    display: flex;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+
+
+
+.empty-cart {
+    text-align: center;
+    color: #888;
+    margin-top: 50px;
+}
+
+/* საძიებო ველის სტილები */
+
+
+
+
+/* ფუტერის სტილები */
+
+
+
+/* კალათის ღილაკი მობილურებისთვის */
+.cart-toggle-button {
+    display: none;
+}
+
+/* მოდალის სტილები */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.delete-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #ff0000;
+}

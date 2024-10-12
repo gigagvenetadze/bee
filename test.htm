@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swipe to Delete</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .table-container {
+            width: 80%;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 18px;
+            text-align: left;
+        }
+        table th, table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .row-container {
+            position: relative;
+            overflow: hidden;
+        }
+        .row-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background-color: white;
+            transition: transform 0.3s ease;
+        }
+        .delete-button {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 100px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            text-align: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Code</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="4">
+                        <div class="row-container">
+                            <div class="row-content">
+                                <span>Product 1</span>
+                                <span>12345</span>
+                                <span>$10.00</span>
+                                <span>5</span>
+                            </div>
+                            <button class="delete-button" onclick="deleteRow(this)">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <div class="row-container">
+                            <div class="row-content">
+                                <span>Product 2</span>
+                                <span>67890</span>
+                                <span>$20.00</span>
+                                <span>3</span>
+                            </div>
+                            <button class="delete-button" onclick="deleteRow(this)">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+    <script>
+        let startX;
+
+        document.querySelectorAll('.row-container').forEach(row => {
+            row.addEventListener('touchstart', function(e) {
+                startX = e.touches[0].clientX;
+            });
+
+            row.addEventListener('touchmove', function(e) {
+                const touch = e.touches[0];
+                const change = startX - touch.clientX;
+
+                if (change > 0) { // User swiped left
+                    this.querySelector('.row-content').style.transform = `translateX(-${Math.min(change, 100)}px)`;
+                    this.querySelector('.delete-button').style.display = 'block';
+                } else {
+                    this.querySelector('.row-content').style.transform = 'translateX(0)';
+                    this.querySelector('.delete-button').style.display = 'none';
+                }
+            });
+
+            row.addEventListener('touchend', function(e) {
+                const content = this.querySelector('.row-content');
+                const change = startX - e.changedTouches[0].clientX;
+
+                if (change > 50) { // If swiped more than 50px
+                    content.style.transform = 'translateX(-100px)';
+                    this.querySelector('.delete-button').style.display = 'block';
+                } else {
+                    content.style.transform = 'translateX(0)';
+                    this.querySelector('.delete-button').style.display = 'none';
+                }
+            });
+        });
+
+        function deleteRow(button) {
+            const row = button.closest('tr');
+            row.remove();
+        }
+    </script>
+</body>
+</html>

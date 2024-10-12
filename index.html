@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>კალათი და პროდუქციის ჩამონათვალი</title>
+   
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style-responsive.css">
+
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <button class="hamburger" id="menuToggle">
+            ☰
+        </button>
+    </header>
+
+    <nav class="menu" id="mainMenu">
+        <ul>
+            <li><a href="index.html">რეალიზაცია</a></li>
+            <li><a href="receive/receive.html">მიღება</a></li>
+            <li><a href="#">მენეჯერი</a></li>
+            <li><a href="#">პარამეტრები</a></li>
+        </ul>
+    </nav>
+    
+    
+    <div class="container">
+        
+        
+        <!-- პროდუქციის ჩამონათვალი -->
+        <div class="products-container">
+            <div class="productList" id="productList">
+                <!-- აქ გამოიტანება პროდუქტები JavaScript-ის დახმარებით -->
+            </div>
+
+        
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="ძებნა დასახელებით ან შტრიხკოდით" onkeyup="searchProducts()">
+            </div>
+    
+        </div>
+      
+            
+<!-- კალათი -->
+        <div class="cart-container" id="cartContainer">
+            <div class="cart-summary">
+                <div class="cart" id="cart">
+    <div style="width: 98%; display: flex; flex-direction: row;  padding: 5px;  box-shadow: 10px 0 5px rgba(0, 0, 0, 0.3); ">
+                        <div style="width: calc(100% - 255px);    justify-content: center; display: flex;" >შტრიხკოდი / დასახელება</div>
+                        <div style="width: 100px; display: flex;  justify-content: center;">რაოდენობა</div>
+                        <div style="width: 100px; display: flex;  justify-content: center;"">ფასი</div></div>
+                    <p class="empty-cart">კალათი ცარიელია</p>
+                </div>
+               <!-- Checkout ღილაკი კალათის შიგნით -->
+                <div class="checkout">
+                    <button id="checkoutButton">რეალიზაცია</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- კალათის ღილაკი -->
+    <button class="cart-toggle-button" id="cartToggleButton" onclick="toggleCart()">
+        <span id="cartItemCount">0</span>
+    </button>
+
+    <!-- მოდალი -->
+    <div id="saleTypeModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>გაყიდვის ტიპი</h2>
+            <p>გთხოვთ, აირჩიოთ გაყიდვის ტიპი:</p>
+            <select id="saleType">
+                <option value="cash">ნაღდი</option>
+                <option value="consignment">კონსიგნაცია</option>
+                <option value="terminal">ტერმინალი</option>
+            </select>
+            <button id="confirmSaleTypeButton">დადასტურება</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+  
+    
+
+    <script src="index.js"></script>
+</body>
+</html>

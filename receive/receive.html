@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>პროდუქციის მიღება</title>
+    <link rel="stylesheet" href="receive.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <button class="hamburger" id="menuToggle">
+            ☰
+        </button>
+        <p id="responseMessage"></p>
+    </header>
+
+    <nav class="menu" id="mainMenu">
+        <ul>
+            <li><a href="../index.html">რეალიზაცია</a></li>
+            <li><a href="#">მიღება</a></li>
+            <li><a href="#">მენეჯერი</a></li>
+            <li><a href="#">პარამეტრები</a></li>
+        </ul>
+    </nav>
+
+    <div class="container" id="container">
+        <form id="receiveForm" autocomplete="off">
+            <!-- ზედნადები -->
+            <fieldset>
+                <legend>ზედნადები</legend>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="supplier_id">მომწოდებლის საიდენტიფიკაციო:</label>
+                        <input type="text" id="supplier_id" name="supplier_id" required>
+                        <div id="supplierIdSuggestions" class="suggestion-box"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="supplier_name">მომწოდებლის სახელი:</label>
+                        <input type="text" id="supplier_name" name="supplier_name" required>
+                        <div id="supplierNameSuggestions" class="suggestion-box"></div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="document_number">საბუთის ნომერი:</label>
+                        <input type="text" id="document_number" name="document_number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">თარიღი:</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <button type="button" id="applyButton" style="width: 87%;" disabled>ზედნადების შექმნა</button>
+                </div>
+            </fieldset>
+
+            <!-- პროდუქტის დეტალები და მიღების დეტალები -->
+            <fieldset id="productAndReceiveDetails" class="blurred">
+                <legend style="display:none;"></legend>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="barcode">შტრიხკოდი:</label>
+                        <input type="text" id="barcode" name="barcode" required>
+                        <div id="barcodeSuggestions" class="suggestion-box"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="article_code">არტიკული კოდი:</label>
+                        <input type="text" id="article_code" name="article_code">
+                        <div id="articleCodeSuggestions" class="suggestion-box"></div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="relative_code">ნათესაობითი კოდი:</label>
+                        <input type="text" id="relative_code" name="relative_code">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">დასახელება:</label>
+                        <input type="text" id="name" name="name" required>
+                        <div id="productNameSuggestions" class="suggestion-box"></div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="unit_of_measure">ზომის ერთეული:</label>
+                        <input type="text" id="unit_of_measure" name="unit_of_measure">
+                    </div>
+                    <div class="form-group">
+                        <label for="department">განყოფილება:</label>
+                        <input type="text" id="department" name="department">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="quantity_received">რაოდენობა:</label>
+                        <input type="number" id="quantity_received" name="quantity_received" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cost_price">თვითღირებულება:</label>
+                        <input type="number" step="0.01" id="cost_price" name="cost_price" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="price1">ფასი 1:</label>
+                        <input type="number" step="0.01" id="price1" name="price1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="price2">ფასი 2:</label>
+                        <input type="number" step="0.01" id="price2" name="price2">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="price3">ფასი 3:</label>
+                        <input type="number" step="0.01" id="price3" name="price3">
+                    </div>
+                    <div class="form-group">
+                        <label for="min_quantity">მინიმალური რაოდენობა:</label>
+                        <input type="number" step="0.01" id="min_quantity" name="min_quantity">
+                    </div>
+                </div>
+                <div class="form-row" style="text-align: center;">
+                    <button type="submit" id="submitReceive" style="width: 90%; margin-top: 20px;">მიღება</button>
+                </div>
+                <div class="form-row" style="text-align: center;">
+                    <button type="button" id="openModalButton" class="open-modal-button" style="width: 250px;">მოდალის გახსნა</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div id="invoiceModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>ზედნადებზე მიღებული პროდუქცია</h2>
+            <p id="invoiceDetails" style="font-size: 18px;"></p>
+            <!-- Table for displaying received products -->
+            <table id="receivedProductsTable" style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th style="border: 1px solid #ddd; padding: 8px;">პროდუქტი</th>
+                        <th style="border: 1px solid #ddd; padding: 8px;">დეტალები</th>
+                        <th style="border: 1px solid #ddd; padding: 8px;">მიღების დრო</th>
+                        <th class="invoiceqmedeba" style="border: 1px solid #ddd; padding: 8px;">ქმედება</th>
+                    </tr>
+                </thead>
+                <tbody id="productsTableBody">
+                    <!-- Table rows will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <p>ავტორობით © 2024 ონლაინ მაღაზია. ყველა უფლება დაცულია.</p>
+    </footer>
+
+    <script>
+        // მომწოდებლების ჩატვირთვა JSON-დან
+        fetch('suppliers.php')
+            .then(response => response.json())
+            .then(data => {
+                // მომწოდებლის საიდენტიფიკაციო ნომრის ველში ჩაწერისას
+                document.getElementById('supplier_id').addEventListener('input', function() {
+                    let input = this.value.toLowerCase();
+                    let suggestions = data.filter(supplier => supplier.identification_number.toLowerCase().includes(input));
+                    showSuggestions('supplierIdSuggestions', suggestions, 'identification_number');
+                    toggleApplyButton(); // დავადგინოთ, უნდა გააქტიურდეს თუ არა ღილაკი
+                });
+
+                // მომწოდებლის სახელის ველში ჩაწერისას
+                document.getElementById('supplier_name').addEventListener('input', function() {
+                    let input = this.value.toLowerCase();
+                    let suggestions = data.filter(supplier => supplier.name.toLowerCase().includes(input));
+                    showSuggestions('supplierNameSuggestions', suggestions, 'name');
+                    toggleApplyButton(); // დავადგინოთ, უნდა გააქტიურდეს თუ არა ღილაკი
+                });
+
+                // მონიშნული ვარიანტის არჩევა
+                function showSuggestions(id, suggestions, field) {
+                    const suggestionBox = document.getElementById(id);
+                    suggestionBox.innerHTML = ''; // წინა შემოთავაზებების გასუფთავება
+
+                    suggestions.forEach(supplier => {
+                        const item = document.createElement('div');
+                        item.className = 'suggestion-item';
+                        item.textContent = supplier[field];
+                        item.onclick = function() {
+                            document.getElementById('supplier_id').value = supplier.identification_number;
+                            document.getElementById('supplier_name').value = supplier.name;
+                            suggestionBox.innerHTML = ''; // არჩევის შემდეგ გასუფთავება
+                            toggleApplyButton(); // დავადგინოთ, უნდა გააქტიურდეს თუ არა ღილაკი
+                        };
+                        suggestionBox.appendChild(item);
+                    });
+                }
+            })
+            .catch(error => console.error('მომწოდებლების ჩატვირთვის შეცდომა:', error));
+
+        // თარიღის ავტომატური შევსება
+        document.getElementById('date').value = new Date().toISOString().substr(0, 10);
+
+        // Apply ღილაკის გააქტიურება, თუ ყველა ველი შევსებულია
+        function toggleApplyButton() {
+            const supplierId = document.getElementById('supplier_id').value;
+            const supplierName = document.getElementById('supplier_name').value;
+            const documentNumber = document.getElementById('document_number').value;
+            const date = document.getElementById('date').value;
+
+            const applyButton = document.getElementById('applyButton');
+            if (supplierId && supplierName && documentNumber && date) {
+                applyButton.disabled = false;
+            } else {
+                applyButton.disabled = true;
+            }
+        }
+
+        // ყველა საჭირო ველის input მოვისმინოთ, რომ ღილაკი შეძლოს განახლება
+        document.querySelectorAll('#supplier_id, #supplier_name, #document_number, #date').forEach(input => {
+            input.addEventListener('input', toggleApplyButton);
+        });
+
+        // მენიუს გაშლა ჰამბურგერის ღილაკის გამოყენებით
+        const menuToggle = document.getElementById('menuToggle');
+        const mainMenu = document.getElementById('mainMenu');
+
+        menuToggle.addEventListener('click', () => {
+            mainMenu.classList.toggle('show');
+        });
+
+        // Apply ღილაკის ფუნქციონალურობა
+        const applyButton = document.getElementById('applyButton');
+        const productAndReceiveDetails = document.getElementById('productAndReceiveDetails');
+
+        applyButton.addEventListener('click', () => {
+            document.getElementById('supplier_id').disabled = true;
+            document.getElementById('supplier_name').disabled = true;
+            document.getElementById('document_number').disabled = true;
+            document.getElementById('date').disabled = true;
+            applyButton.disabled = true;
+
+            // პროდუქტის და მიღების დეტალების ბლარის მოცილება
+            productAndReceiveDetails.classList.remove('blurred');
+        });
+
+        // პროდუქტების შემოთავაზებები ბაზიდან
+        function fetchSuggestions(inputId, suggestionBoxId) {
+            const input = document.getElementById(inputId);
+            const suggestionBox = document.getElementById(suggestionBoxId);
+
+            input.addEventListener('input', function () {
+                const searchTerm = input.value.trim();
+
+                if (searchTerm.length === 0) {
+                    suggestionBox.innerHTML = '';
+                    return;
+                }
+
+                fetch(`suggestions.php?term=${encodeURIComponent(searchTerm)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        suggestionBox.innerHTML = ''; // წინა შემოთავაზებების გასუფთავება
+
+                        data.forEach(item => {
+                            const div = document.createElement('div');
+                            div.className = 'suggestion-item';
+                            div.innerHTML = `შტრიხკოდი: ${item.barcode}, არტიკული: ${item.article_code}, დასახელება: ${item.name}`;
+                            div.onclick = function () {
+                                // შეავსეთ ყველა შესაბამისი ველი არჩეული პროდუქტით
+                                document.getElementById('barcode').value = item.barcode;
+                                document.getElementById('article_code').value = item.article_code;
+                                document.getElementById('name').value = item.name;
+                                document.getElementById('relative_code').value = item.relative_code || '';
+                                document.getElementById('unit_of_measure').value = item.unit_of_measure || '';
+                                document.getElementById('department').value = item.department || '';
+                                document.getElementById('min_quantity').value = item.min_quantity || '';
+                                document.getElementById('cost_price').value = item.cost_price || '';
+                                document.getElementById('price1').value = item.price1 || '';
+                                document.getElementById('price2').value = item.price2 || '';
+                                document.getElementById('price3').value = item.price3 || '';
+                                
+                                suggestionBox.innerHTML = ''; // არჩევის შემდეგ შემოთავაზებების გასუფთავება
+                            };
+                            suggestionBox.appendChild(div);
+                        });
+                    })
+                    .catch(error => console.error('შეცდომა შემოთავაზებების ჩატვირთვისას:', error));
+            });
+        }
+
+        // გამოიყენეთ ეს ფუნქცია სამივე ველისთვის
+        fetchSuggestions('barcode', 'barcodeSuggestions');
+        fetchSuggestions('article_code', 'articleCodeSuggestions');
+        fetchSuggestions('name', 'productNameSuggestions');
+
+        // ფორმის გაგზავნა PHP ფაილზე
+        document.getElementById('receiveForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // ფორმის შეტანის თავიდან აცილება
+
+            const formData = {
+                barcode: document.getElementById('barcode').value,
+                article_code: document.getElementById('article_code').value,
+                relative_code: document.getElementById('relative_code').value,
+                name: document.getElementById('name').value,
+                unit_of_measure: document.getElementById('unit_of_measure').value,
+                min_quantity: parseInt(document.getElementById('min_quantity').value),
+                department: document.getElementById('department').value,
+                quantity_received: parseInt(document.getElementById('quantity_received').value),
+                cost_price: parseFloat(document.getElementById('cost_price').value),
+                price1: parseFloat(document.getElementById('price1').value),
+                price2: parseFloat(document.getElementById('price2').value),
+                price3: parseFloat(document.getElementById('price3').value),
+                supplier_id: parseInt(document.getElementById('supplier_id').value),
+
+                supplier_name: document.getElementById('supplier_name').value, // დაამატეთ ეს ველი
+                
+                document_number: document.getElementById('document_number').value,
+                date: document.getElementById('date').value
+            };
+
+            console.log('Data to send:', formData); // მონაცემების ბეჭდვა გაგზავნამდე
+
+            // JSON მონაცემების გაგზავნა PHP ფაილზე
+            fetch('receive_product.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Response data:', data); // სერვერის პასუხის ბეჭდვა
+                document.getElementById('responseMessage').innerText = data.message || data.error;
+
+                // თუ მიღება წარმატებულია, გაწმინდეთ ველები
+                if (data.message) {
+                    document.getElementById('barcode').value = '';
+                    document.getElementById('article_code').value = '';
+                    document.getElementById('relative_code').value = '';
+                    document.getElementById('name').value = '';
+                    document.getElementById('unit_of_measure').value = '';
+                    document.getElementById('department').value = '';
+                    document.getElementById('quantity_received').value = '';
+                    document.getElementById('cost_price').value = '';
+                    document.getElementById('price1').value = '';
+                    document.getElementById('price2').value = '';
+                    document.getElementById('price3').value = '';
+                    document.getElementById('min_quantity').value = '';
+                }
+            })
+            .catch(error => {
+                console.error('შეცდომა:', error);
+                alert('შეცდომა მოხდა მოთხოვნის დროს: ' + error.message);
+            });
+        });
+
+        // Find the button and modal elements
+        const openModalButton = document.getElementById('openModalButton');
+        const invoiceModal = document.getElementById('invoiceModal');
+
+        // Add click event listener to open the modal
+        openModalButton.onclick = function () {
+            document.body.style.overflowY = 'hidden';
+
+            
+            invoiceModal.style.display = 'block';
+            fetchReceivedProducts(); // Fetch products when modal opens
+        }
+
+        const closeButton = document.querySelector('.close-button');
+
+        // Add click event listener to close the modal
+        closeButton.onclick = function () {
+            invoiceModal.style.display = 'none';
+            document.body.classList.remove('blurred-background'); // Remove blur effect
+            document.body.style.overflowY = 'auto';
+        }
+
+        // Optional: Close the modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target === invoiceModal) {
+                invoiceModal.style.display = 'none';
+                document.body.classList.remove('blurred-background');
+                document.body.style.overflowY = 'auto';
+
+            }
+        }
+
+        // Fetch received products when opening modal
+        function fetchReceivedProducts() {
+            const supplierName = document.getElementById('supplier_name').value;
+            const documentNumber = document.getElementById('document_number').value;
+        
+            fetch(`get_received_products.php?supplier_name=${encodeURIComponent(supplierName)}&document_number=${encodeURIComponent(documentNumber)}`)
+                .then(response => response.json())
+                .then(data => {
+                    populateProductsTable(data);
+                })
+                .catch(error => {
+                    console.error('შეცდომა მონაცემების წამოღებისას:', error);
+                    document.getElementById('productsTableBody').innerHTML = '<tr><td colspan="7">შეცდომა მონაცემების წამოღებისას</td></tr>';
+                });
+        }
+
+        // Populate the table with received products
+        function populateProductsTable(products) {
+            const productsTableBody = document.getElementById('productsTableBody');
+            productsTableBody.innerHTML = ''; // Clear previous table rows
+
+            if (products.length === 0) {
+                productsTableBody.innerHTML = '<tr><td colspan="7">მონაცემები ვერ მოიძებნა</td></tr>';
+                return;
+            }
+            let x = 0;
+            let y = 0;
+            products.forEach(product => {
+                x=x+parseFloat((product.cost_price * product.quantity_received).toFixed(4));
+                y=y+parseFloat((product.price1 * product.quantity_received).toFixed(4));
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td style="border: 1px solid #ddd; padding: 8px;">
+                        <div>${product.barcode}</div>
+                        <div>${product.product_name}</div>
+                    </td>
+                    <td style="border: 1px solid #ddd; padding: 8px; display:flex; ">
+                        <div style="padding:2px; text-align:center; width:33%">რაოდ<p style="font-weight: bold;"> ${product.quantity_received}</p></div>
+                        <div style="padding:2px; text-align:center; width:33%">ასაღები</br> ${product.cost_price.toFixed(2)}<hr>${(product.cost_price * product.quantity_received).toFixed(2)}</div>
+                        <div style="padding:2px; text-align:center; width:33%">გასაყიდი</br> ${product.price1}<hr>${(product.price1 * product.quantity_received ).toFixed(2)}</div>
+                    </td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">
+                        <div>${product.date_received}</div>
+                        <div>${product.time_received}</div>
+                    </td>
+                    <td class="invoiceqmedeba" style="border: 1px solid #ddd; padding: 8px;">
+                <button onclick="deleteRow(this)">წაშლა</button>
+            </td>
+
+                `;
+                productsTableBody.appendChild(row);
+            });
+            let row = document.createElement('tr');
+            row.innerHTML = `
+                    <td style="border: 1px solid #ddd; padding: 8px;">
+                        <div></div>
+                        <div></div>
+                    </td>
+                    <td style="border: 1px solid #ddd; padding: 8px; display:flex; ">
+                        
+                        <div style="padding:2px; font-weight: bold; text-align:right; width:50%">ასაღები ჯამი</br>${x.toFixed(2)} </div>
+                        <div style="padding:2px; font-weight: bold; width:50%; padding-left:60px">გასაყიდი ჯამი</br>${y.toFixed(2)} </div>
+                    </td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">
+                        <div></div>
+                        <div></div>
+                    </td class="invoiceqmedeba">
+                        <td style="border: 1px solid #ddd; padding: 8px;">
+                        <div></div>
+                       
+                    </td>
+                `;    
+                productsTableBody.appendChild(row);
+
+        }
+    </script>
+</body>
+</html>

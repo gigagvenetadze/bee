@@ -1,0 +1,430 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    padding: 20px;
+    overflow-y: auto; /* Enable vertical scrolling */
+   
+}
+
+header {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 0px 0px;
+    text-align: left;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.hamburger {
+    display: block;
+    font-size: 32px; /* Increased size */
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-left: 5px; /* Adjusted position */
+}
+
+.menu {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: -100%; /* Start off-screen */
+    width: 30%; /* Covers 70% of the screen */
+    height: 100%; /* Full height */
+    background-color: #4CAF50;
+    z-index: 999;
+    transition: left 1s ease; /* Smooth transition with 1 second duration */
+    overflow-y: auto; /* Enable scrolling within the menu */
+}
+
+.menu.show {
+
+    left: 0; /* Show the menu */
+    display: block; /* გამოჩენა */
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 80px; /* Space for the header */
+}
+
+.menu ul li {
+    display: block;
+    text-align: center;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    padding: 15px 0;
+    transition: background-color 0.3s ease;
+    display: block;
+    width: 100%;
+}
+
+.menu ul li a:hover {
+    background-color: #45a049;
+    border-radius: 5px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    max-width: 90%;
+    width: 90%;
+    box-sizing: border-box;
+    margin-top: 100px; /* Adjust for header height */
+    overflow-y: auto; /* Enable vertical scrolling within the container */
+
+}
+
+form {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+fieldset {
+    border: none;
+    margin-bottom: 20px;
+    padding: 10px;
+    position: relative;
+
+}
+
+legend {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.form-row {
+    display: flex;
+    justify-content: center;
+   
+    margin-bottom: 15px;
+    position: relative; /* Add this for suggestions positioning */
+
+  
+
+}
+
+.form-group {
+    flex: 1;
+    margin-right: 10px;
+    position: relative; /* Add this for suggestions positioning */
+}
+
+.form-group:last-child {
+    margin-right: 0;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"] {
+    width: 100%; /* Default width for larger screens */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+input[type="text"]:disabled,
+input[type="number"]:disabled,
+input[type="date"]:disabled {
+    background-color: #f0f0f0;
+}
+
+button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+footer {
+    width: 100%;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.suggestion-box {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute;
+    background-color: white;
+    z-index: 10;
+    width: 100%; /* Suggestion box width matches input */
+    top: 100%; /* Position suggestion box below input */
+    left: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
+
+.blurred {
+    filter: blur(5px);
+    pointer-events: none;
+}
+
+.received-invoices {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #333;
+}
+
+.received-invoices ul {
+    list-style: none;
+    padding: 0;
+}
+
+.received-invoices li {
+    cursor: pointer;
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.received-invoices li:hover {
+    background-color: #f5f5f5;
+}
+
+
+.row-container {
+    position: relative;
+    overflow: hidden;
+    background-color:blueviolet;
+}
+.row-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    background-color: #4CAF50;
+    transition: transform 0.3s ease;
+}
+.delete-button {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+/* Modal styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 20; /* On top of other elements */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0%; /* Added margin */
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+   
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* Centered content */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    padding-bottom: 100px;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Blur effect for background */
+.blurred-background {
+    filter: blur(5px);
+    pointer-events: none;
+}
+
+
+#receivedProductsTable {
+    border-radius: 10px;
+    
+    
+  
+
+}
+.invoiceqmedeba {
+display:grid;
+}
+
+/* Media Queries for Tablet Devices */
+@media (max-width: 1024px) {
+    .invoiceqmedeba {
+        display: none;
+        }
+    .container {
+        width: 90%; /* Adjusted width for tablets */
+    }
+
+    .form-row {
+        flex-direction: column; /* Fields stacked vertically */
+
+        display: flex;
+       
+       
+        margin-bottom: 15px;
+      
+    }
+
+    .form-group {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"] {
+        width: 85%; /* Adjusted width for tablets */
+    }
+
+    .suggestion-box {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        max-height: 150px;
+        overflow-y: auto;
+        position: absolute;
+        background-color: white;
+        z-index: 10;
+        width: 85%; /* Suggestion box width matches input */
+        top: 100%; /* Position suggestion box below input */
+        left: 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        
+    }
+    
+
+    header h1 {
+        font-size: 20px;
+    }
+
+    .menu {
+        display: none; /* Hide menu by default on tablets */
+        width: 70%; /* Covers 70% of the screen */
+    }
+
+    .hamburger {
+        display: block; /* Show hamburger menu button on tablets */
+    }
+
+    footer p {
+        font-size: 12px;
+    }
+
+    .modal {
+        padding-top: 60px;
+    }
+
+    .modal-content {
+        width: 85%;
+        
+        margin: 2%;
+    }
+
+    .modal-content h2 {
+        font-size: 16px;
+    }
+
+    .modal-content p {
+        font-size: 9px;
+    }
+
+    .modal-content table {
+        font-size: 8px;
+    }
+
+    .modal-content th, .modal-content td {
+        padding: 4px;
+    }
+
+  
+}

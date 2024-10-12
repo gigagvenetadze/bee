@@ -1,0 +1,191 @@
+/* Media Queries for Tablet Devices */
+@media (max-width: 1024px) {  
+    html, body {
+        height: 100%; /* აუცილებელია მშობლის სიმაღლის განსაზღვრა */
+        margin: 0;
+    } 
+
+    .container {
+        margin: 0px;
+        width: 100%;
+        overflow-y: auto; /* ვერტიკალური სქროლი */
+        height: 100%; /* ფანჯრის სიმაღლის 80% */
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 0px;
+    
+    }
+    
+    header {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        
+        text-align: left;
+       
+        height: 50px;
+        
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        box-shadow: 0 -10px 15px rgba(0, 0, 0, 0.5); /* მკვეთრი ზედა ჩრდილი */
+        
+    }
+    
+    .hamburger {
+        display: block;
+        font-size: 32px;
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        margin-left: 20px;
+    }
+    
+    /* მენიუს სტილები */
+    .menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        height: 100%;
+        background-color: #4CAF50;
+        z-index: 999;
+        transition: left 1s ease;
+    }
+    
+    .menu.show {
+        display: block;
+        left: 0;
+    }
+    
+    .menu ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding-top: 80px;
+    }
+    
+    .menu ul li {
+        display: block;
+        text-align: center;
+    }
+    
+    .menu ul li a {
+        text-decoration: none;
+        color: white;
+        font-size: 20px;
+        padding: 15px 0;
+        transition: background-color 0.3s ease;
+        display: block;
+        width: 100%;
+    }
+    
+    .menu ul li a:hover {
+        background-color: #45a049;
+        border-radius: 5px;
+    }
+        
+    .products-container {
+        
+        justify-content: flex-end;
+        align-items: center;
+        
+        width: 100%;
+        overflow-y: hidden;
+        box-sizing: border-box;
+        height: 100%;
+        min-height: 80%;
+        display: flex;
+        flex-direction: column-reverse;     
+        margin: 0px;
+        padding: 0px;        
+        background-color: #ddd;
+        
+    }
+    .productList {
+        box-shadow: 0px 0 0px green(0, 0, 0, 0.3); /* მარჯვენა ჩრდილი */
+
+
+        overflow-y:auto;
+        height: calc(100% - 150px);
+        
+       background-color: #ddd;
+        border-radius: 10px;
+    }
+    .search-container {
+        margin-top: 0px;
+        box-shadow: -2px 10px 5px green(0, 0, 0, 0.2); /* ზედა ჩრდილი */
+        
+        left: 0;
+        width: 100%;
+        border: 1px dashed green;        
+        
+        height: 50px;
+        z-index: 10; /* რომ არ დაიფაროს პროდუქციის სიით */
+    }
+
+    .search-container input {
+        width: calc(100% - 20px); /* ძებნის ველის სიგანე */
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+ 
+    .cart {
+        margin-top: 50px;
+        
+    }
+    .cart-container,
+    
+   
+    
+    
+
+    
+    .cart-container {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        transition: right 0.3s ease;
+    }
+
+    .cart-container.active {
+        right: 0;
+    }
+
+    .checkout {
+        width: 100%;
+    }
+
+    .cart-toggle-button {
+        display: block;
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        font-size: 18px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        z-index: 10005;
+        transition: background-color 0.3s ease;
+    }
+
+    .cart-toggle-button:hover {
+        background-color: #45a049;
+    }
+}
