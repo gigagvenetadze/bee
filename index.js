@@ -101,7 +101,7 @@ function addToCart(name, code, salePrice) {
 
       // რეალიზაციის ღილაკის დაჭერისას მოდალის გახსნა
       checkoutButton.onclick = function() {
-        alert("sadasd")
+        
           modal.style.display = 'block';
       }
 
@@ -110,18 +110,36 @@ function addToCart(name, code, salePrice) {
           modal.style.display = 'none';
       }
 
+      
       // გაყიდვის ტიპის დადასტურება
-      confirmSaleTypeButton.onclick = function() {
-          var saleType = document.getElementById('saleType').value;
-
-          if (Object.keys(cartItems).length === 0) {
-              alert('კალათი ცარიელია!');
-              return;
-          }
-
-          processSale(saleType);
-          modal.style.display = 'none'; // მოდალის დახურვა დადასტურების შემდეგ
-      }
+      confirmSaleTypeButton.onclick = function processSale(saleType) {
+        var data = {
+            sale_type: saleType,
+            cart_items: cartItems
+        };
+    
+        // AJAX მოთხოვნა გაყიდვის დასამუშავებლად
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'process_sale.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+    
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                alert('გაყიდვა წარმატებით განხორციელდა!');
+                // კალათის გასუფთავება
+                cartItems = {};
+                var cart = document.getElementById('cart');
+                cart.innerHTML = '<p class="empty-cart">კალათი ცარიელია</p>';
+                updateCartItemCount();
+                updateTotalAmount();
+            } else {
+                alert('გაყიდვა ვერ შესრულდა: ' + xhr.responseText);
+            }
+        };
+    
+        xhr.send(JSON.stringify(data)); // მონაცემების გადაცემა სერვერზე
+    }
+    
 
       function processSale(saleType) {
           alert('თქვენ აირჩიეთ ' + saleType + ' გაყიდვა');
